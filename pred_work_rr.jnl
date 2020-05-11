@@ -28,10 +28,18 @@ let aice_2d_comp=reshape(aice_1d[i=1:`nblocks*$3`],dummy_2d)
 
 let work_1d=aice_2d_comp[j=@sum]
 
+let ice_on_block=if ignore0(AICE_2d_comp) then 1 else 0
+let work2_1d=ice_on_block[j=@sum]
+let/title="Processor number + 1" tile_sorted_index=sorti(work2_1d)
+let/title="Processor number" tPE=tile_sorted_index-1
+let/title="Expected thermo tile used nx=$1 ny=$2 nproc=$3" ntile_sorted=samplei(work2_1d,tile_sorted_index)
+
 let/title="Processor number + 1" work_sorted_index=sorti(work_1d)
 let/title="Processor number" PE=work_sorted_index-1
 let/title="Expected thermo work nx=$1 ny=$2 nproc=$3" work_sorted=samplei(work_1d,work_sorted_index)
 
 set win/size=1.5 1;plot/col=red/thick=2 work_sorted
 set win/size=1.5 2;plot/col=red/thick=2/sym/vs pe,work_sorted
+set win/size=1.5 3;plot/col=red/thick=2 ntile_sorted
+set win/size=1.5 4;plot/col=red/thick=2/sym/vs tpe,ntile_sorted
 \set mode verify/last
