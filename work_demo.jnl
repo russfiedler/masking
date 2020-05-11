@@ -1,0 +1,18 @@
+\can mode verify
+set mem/size=100
+say "loading ice history"
+use "/g/data/ik11/outputs/access-om2-01/01deg_jra55v13_ryf9091/output795/ice/OUTPUT/iceh.2099-10.nc"
+
+message "All these configs have nblocks=5"
+say "Test with 1385 pes"
+go pred_work_rr 36 30 1385
+say "Note that we have quite a few processors with no work to do during the thremo step and a few that have a weighting of 2.8 which is 40% more the usual load"
+message
+say "Test with 1500 pes"
+go pred_work_rr 36 30 1500
+say "Note that we have fewer processors with no work to do during the thremo step and just a couple that have a weighting of 2.2 or so holding us up"
+message
+say "Test with 1599 pes"
+go pred_work_rr 36 30 1599
+say "Perfect..."
+\set mode verify/last

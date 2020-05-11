@@ -1,0 +1,9 @@
+#!/bin/bash
+
+module load intel-compiler
+module unload netcdf
+module load netcdf/4.7.3
+
+
+ifort -O -o get_num_pes_masked_cice  get_num_pes_masked_cice.f90 -I$NETCDF_ROOT/include/Intel -L$NETCDF_ROOT/lib/Intel -lnetcdff -lnetcdf
+ifort -O -o get_pe_number_mom get_pe_number_mom.f90 -I$NETCDF_ROOT/include/Intel -L$NETCDF_ROOT/lib/Intel -lnetcdff -lnetcdf
